@@ -1,0 +1,162 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion - DSI23 SHOP{% endblock %}
+
+{% block stylesheets %}
+<style>
+    .login-container {
+        min-height: 80vh;
+        display: flex;
+        align-items: center;
+        background: linear-gradient(135deg, #f5f7fa 0%);
+    }
+    .login-card {
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        overflow: hidden;
+    }
+    .login-header {
+        background: #4a90e2;
+        color: white;
+        padding: 20px;
+        text-align: center;
+    }
+    .login-body {
+        padding: 30px;
+    }
+    .form-control {
+        border-radius: 10px;
+        padding: 12px;
+        border: 2px solid #e9ecef;
+    }
+    .form-control:focus {
+        border-color: #4a90e2;
+        box-shadow: 0 0 0 0.2rem rgba(74, 144, 226, 0.25);
+    }
+    .btn-login {
+        background: #4a90e2;
+        border: none;
+        padding: 12px 30px;
+        border-radius: 10px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+    .btn-login:hover {
+        background: #357abd;
+        transform: translateY(-2px);
+    }
+    .form-check-input:checked {
+        background-color: #4a90e2;
+        border-color: #4a90e2;
+    }
+    .register-link {
+        color: #4a90e2;
+        text-decoration: none;
+        font-weight: 600;
+    }
+    .register-link:hover {
+        color: #357abd;
+        text-decoration: underline;
+    }
+    .password-toggle {
+        position: relative;
+    }
+    .password-toggle .form-control {
+        padding-right: 40px;
+    }
+    .toggle-password {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        color: #6c757d;
+        cursor: pointer;
+        padding: 5px;
+    }
+    .toggle-password:hover {
+        color: #4a90e2;
+    }
+    .toggle-password i {
+        font-size: 1.2rem;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="login-container">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-5">
+                <div class="login-card">
+                    <div class="login-header">
+                        <h1 class="h3 mb-0">Bienvenue sur DSI23 SHOP</h1>
+                        <p class="mb-0">Connectez-vous à votre compte</p>
+                    </div>
+                    <div class="login-body">
+                        {% if error %}
+                            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                        {% endif %}
+
+                        <form method="post">
+                            <div class="mb-4">
+                                <label for="inputEmail" class="form-label">Email</label>
+                                <input type="email" value="{{ username }}" name="_username" id="inputEmail" 
+                                       class="form-control" autocomplete="email" required autofocus>
+                            </div>
+                            <div class="mb-4 password-toggle">
+                                <label for="inputPassword" class="form-label">Mot de passe</label>
+                                <input type="password" name="_password" id="inputPassword" 
+                                       class="form-control" autocomplete="current-password" required>
+                                <button type="button" class="toggle-password" onclick="togglePassword()">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+
+                            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                            <div class="mb-4 form-check">
+                                <input type="checkbox" class="form-check-input" id="remember_me" name="_remember_me">
+                                <label class="form-check-label" for="remember_me">Se souvenir de moi</label>
+                            </div>
+
+                            <div class="d-grid mb-4">
+                                <button class="btn btn-login text-white" type="submit">
+                                    Se connecter
+                                </button>
+                            </div>
+                        </form>
+
+                        <div class="text-center">
+                            <p class="mb-0">Vous n'avez pas de compte ? 
+                                <a href="{{ path('app_register') }}" class="register-link">S'inscrire</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+<script>
+    function togglePassword() {
+        const passwordInput = document.getElementById('inputPassword');
+        const toggleButton = document.querySelector('.toggle-password i');
+        
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            toggleButton.classList.remove('fa-eye');
+            toggleButton.classList.add('fa-eye-slash');
+        } else {
+            passwordInput.type = 'password';
+            toggleButton.classList.remove('fa-eye-slash');
+            toggleButton.classList.add('fa-eye');
+        }
+    }
+</script>
+{% endblock %} 

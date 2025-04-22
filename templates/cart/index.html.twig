@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon Panier{% endblock %}
+
+{% block body %}
+    <h1>Mon Panier</h1>
+
+    {% if cartItems is empty %}
+        <p>Votre panier est vide.</p>
+    {% else %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Produit</th>
+                    <th>Prix</th>
+                    <th>Quantité</th>
+                    <th>Total</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% set total = 0 %}
+                {% for item in cartItems %}
+                    {% set total = total + (item.product.price * item.quantity) %}
+                    <tr>
+                        <td>{{ item.product.name }}</td>
+                        <td>{{ item.product.price }} €</td>
+                        <td>
+                            <form action="{{ path('cart_update', {'id': item.product.id}) }}" method="post">
+                                <input type="number" name="quantity" value="{{ item.quantity }}" min="1" style="width: 60px;">
+                                <button type="submit" class="btn btn-sm btn-primary">Modifier</button>
+                            </form>
+                        </td>
+                        <td>{{ (item.product.price * item.quantity)|number_format(2) }} €</td>
+                        <td>
+                            <a href="{{ path('cart_remove', {'id': item.product.id}) }}" class="btn btn-danger btn-sm">Supprimer</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <h3>Total : {{ total|number_format(2) }} €</h3>
+    {% endif %}
+    <a href="{{ path('app_home') }}" class="btn btn-primary">Continuer vos achats</a>
+{% endblock %}

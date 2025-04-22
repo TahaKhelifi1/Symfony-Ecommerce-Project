@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}À propos de DSI23 SHOP{% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <h1 class="text-center mb-4">À propos de DSI23 SHOP</h1>
+        
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title">Notre Mission</h2>
+                <img src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="E-commerce" class="img-thumbnail mb-3">
+                <p class="card-text">
+                    DSI23 SHOP est votre destination en ligne pour une expérience d'achat exceptionnelle. Notre plateforme a été conçue pour offrir une sélection soigneusement choisie de produits de qualité, alliant style, fonctionnalité et prix compétitifs.
+                </p>
+                
+                <h2 class="card-title mt-4">Ce qui nous distingue</h2>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Une interface utilisateur intuitive et facile à naviguer</li>
+                    <li class="list-group-item">Des produits de qualité sélectionnés avec soin</li>
+                    <li class="list-group-item">Un service client réactif et attentionné</li>
+                    <li class="list-group-item">Des prix compétitifs et des promotions régulières</li>
+                    <li class="list-group-item">Une expérience d'achat sécurisée</li>
+                </ul>
+                
+                <h2 class="card-title mt-4">Notre Engagement</h2>
+                <p class="card-text">
+                    Chez DSI23 SHOP, nous nous engageons à fournir une expérience d'achat en ligne exceptionnelle. Notre équipe travaille sans relâche pour vous offrir :
+                </p>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Une livraison rapide et fiable</li>
+                    <li class="list-group-item">Un service client disponible 24/7</li>
+                    <li class="list-group-item">Des retours faciles et gratuits</li>
+                    <li class="list-group-item">Des mises à jour régulières de notre catalogue</li>
+                </ul>
+
+                <div class="text-center mt-4">
+                    <a href="{{ path('app_home') }}" class="btn btn-primary">Découvrir nos produits</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,101 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Home{% endblock %}
+
+{% block stylesheets %}
+<style>
+    .carousel {
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    .carousel-inner {
+        border-radius: 8px;
+    }
+
+    .carousel-item {
+        transition: transform 1.2s ease-in-out;
+    }
+
+    .carousel-item img {
+        height: 400px;
+        object-fit: cover;
+    }
+
+    .carousel-caption {
+        background: rgba(0, 0, 0, 0.5);
+        padding: 20px;
+        border-radius: 8px;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80%;
+    }
+
+    .carousel-caption h5 {
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .carousel-indicators {
+        bottom: 20px;
+    }
+
+    .carousel-indicators button {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        margin: 0 5px;
+        background-color: rgba(255, 255, 255, 0.5);
+        border: 2px solid #fff;
+    }
+
+    .carousel-indicators button.active {
+        background-color: #fff;
+    }
+
+    .carousel-control-prev,
+    .carousel-control-next {
+        width: 5%;
+        opacity: 0.8;
+    }
+
+    .carousel-control-prev:hover,
+    .carousel-control-next:hover {
+        opacity: 1;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card mb-4">
+                <div class="card-body text-center">
+                    <h1 class="card-title mb-4">Welcome to DSI23 SHOP</h1>
+                </div>
+            </div>
+            <div class="row">
+                {% for product in products %}
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h3 class="card-title">{{ product.name }}</h3>
+                            <p class="card-text">{{ product.description }}</p>
+                            <p class="card-text"><strong>{{ product.price }} €</strong></p>
+                            <a href="{{ path('cart_add', {'id': product.id}) }}" class="btn btn-outline-success">Ajouter au panier</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="text-center mt-2 mb-2">
+                <a href="{{ path('app_about') }}" class="btn btn-primary">Go to About Page</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

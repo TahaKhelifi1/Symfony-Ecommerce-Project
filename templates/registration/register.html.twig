@@ -1,0 +1,164 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription - DSI23 SHOP{% endblock %}
+
+{% block stylesheets %}
+<style>
+    .register-container {
+        min-height: 80vh;
+        display: flex;
+        align-items: center;
+        
+    }
+    .register-card {
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        overflow: hidden;
+    }
+    .register-header {
+        background: #4a90e2;
+        color: white;
+        padding: 20px;
+        text-align: center;
+    }
+    .register-body {
+        padding: 30px;
+    }
+    .form-control {
+        border-radius: 10px;
+        padding: 12px;
+        border: 2px solid #e9ecef;
+    }
+    .form-control:focus {
+        border-color: #4a90e2;
+        box-shadow: 0 0 0 0.2rem rgba(74, 144, 226, 0.25);
+    }
+    .btn-register {
+        background: #4a90e2;
+        border: none;
+        padding: 12px 30px;
+        border-radius: 10px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+    .btn-register:hover {
+        background: #357abd;
+        transform: translateY(-2px);
+    }
+    .form-check-input:checked {
+        background-color: #4a90e2;
+        border-color: #4a90e2;
+    }
+    .login-link {
+        color: #4a90e2;
+        text-decoration: none;
+        font-weight: 600;
+    }
+    .login-link:hover {
+        color: #357abd;
+        text-decoration: underline;
+    }
+    .password-toggle {
+        position: relative;
+    }
+    .password-toggle .form-control {
+        padding-right: 40px;
+    }
+    .toggle-password {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        color: #6c757d;
+        cursor: pointer;
+        padding: 5px;
+    }
+    .toggle-password:hover {
+        color: #4a90e2;
+    }
+    .toggle-password i {
+        font-size: 1.2rem;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="register-container">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-5">
+                <div class="register-card">
+                    <div class="register-header">
+                        <h1 class="h3 mb-0">Bienvenue sur DSI23 SHOP</h1>
+                        <p class="mb-0">Créez votre compte</p>
+                    </div>
+                    <div class="register-body">
+                        {{ form_errors(registrationForm) }}
+
+                        {{ form_start(registrationForm) }}
+                            <div class="mb-4">
+                                {{ form_label(registrationForm.username, 'Nom d\'utilisateur', {'label_attr': {'class': 'form-label'}}) }}
+                                {{ form_widget(registrationForm.username, {'attr': {'class': 'form-control'}}) }}
+                                {{ form_errors(registrationForm.username) }}
+                            </div>
+
+                            <div class="mb-4">
+                                {{ form_label(registrationForm.email, 'Email', {'label_attr': {'class': 'form-label'}}) }}
+                                {{ form_widget(registrationForm.email, {'attr': {'class': 'form-control'}}) }}
+                                {{ form_errors(registrationForm.email) }}
+                            </div>
+
+                            <div class="mb-4 password-toggle">
+                                {{ form_label(registrationForm.plainPassword, 'Mot de passe', {'label_attr': {'class': 'form-label'}}) }}
+                                {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-control'}}) }}
+                                <button type="button" class="toggle-password" onclick="togglePassword()">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                {{ form_errors(registrationForm.plainPassword) }}
+                            </div>
+
+                            <div class="mb-4 form-check">
+                                {{ form_widget(registrationForm.agreeTerms, {'attr': {'class': 'form-check-input'}}) }}
+                                {{ form_label(registrationForm.agreeTerms, 'J\'accepte les conditions d\'utilisation', {'label_attr': {'class': 'form-check-label'}}) }}
+                                {{ form_errors(registrationForm.agreeTerms) }}
+                            </div>
+
+                            <div class="d-grid mb-4">
+                                <button type="submit" class="btn btn-register text-white">S\'inscrire</button>
+                            </div>
+                        {{ form_end(registrationForm) }}
+
+                        <div class="text-center">
+                            <p class="mb-0">Vous avez déjà un compte ? 
+                                <a href="{{ path('app_login') }}" class="login-link">Se connecter</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+<script>
+    function togglePassword() {
+        const passwordInput = document.getElementById('registration_form_plainPassword');
+        const toggleButton = document.querySelector('.toggle-password i');
+        
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            toggleButton.classList.remove('fa-eye');
+            toggleButton.classList.add('fa-eye-slash');
+        } else {
+            passwordInput.type = 'password';
+            toggleButton.classList.remove('fa-eye-slash');
+            toggleButton.classList.add('fa-eye');
+        }
+    }
+</script>
+{% endblock %}

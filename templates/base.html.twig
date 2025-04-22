@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+        <style>
+            .navbar {
+                background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%) !important;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+                padding: 1rem 0;
+            }
+            .navbar-brand {
+                font-weight: 700;
+                font-size: 1.5rem;
+                color: white !important;
+                transition: all 0.3s ease;
+                margin-right: 2rem;
+            }
+            .navbar-brand:hover {
+                transform: translateY(-2px);
+            }
+            .nav-link {
+                color: rgba(255,255,255,0.9) !important;
+                font-weight: 500;
+                padding: 0.5rem 1rem !important;
+                border-radius: 8px;
+                transition: all 0.3s ease;
+                margin: 0 0.2rem;
+            }
+            .nav-link:hover {
+                color: white !important;
+                background: rgba(255,255,255,0.1);
+                transform: translateY(-2px);
+            }
+            .dropdown-toggle {
+                background: transparent;
+                border: 2px solid rgba(255,255,255,0.5);
+                color: white;
+                border-radius: 8px;
+                padding: 0.5rem 1rem;
+                transition: all 0.3s ease;
+            }
+            .dropdown-toggle:hover {
+                background: rgba(255,255,255,0.1);
+                border-color: white;
+                transform: translateY(-2px);
+            }
+            .dropdown-menu {
+                border: none;
+                border-radius: 10px;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+                padding: 0.5rem;
+            }
+            .dropdown-item {
+                padding: 0.7rem 1.2rem;
+                border-radius: 8px;
+                transition: all 0.3s ease;
+            }
+            .dropdown-item:hover {
+                background: #4a90e2;
+                color: white;
+                transform: translateX(5px);
+            }
+            .navbar-toggler {
+                border: 2px solid rgba(255,255,255,0.5);
+                padding: 0.5rem;
+            }
+            .navbar-toggler:focus {
+                box-shadow: none;
+            }
+            .navbar-toggler-icon {
+                background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 0.9)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+            }
+            .container {
+                max-width: 1200px;
+            }
+            .navbar-nav {
+                margin-left: auto;
+            }
+        </style>
+        {% block stylesheets %}{% endblock %}
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+                <a class="navbar-brand" href="{{ path('app_home') }}">
+                    <i class="fas fa-shopping-bag me-2"></i>DSI23 SHOP
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('app_home') }}">
+                                <i class="fas fa-home me-1"></i>Accueil
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('app_about') }}">
+                                <i class="fas fa-info-circle me-1"></i>À propos
+                            </a>
+                        </li>
+                        {% if app.user %}
+                        <div class="dropdown">
+                            <button class="btn dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-user me-1"></i>{{ app.user.username }}
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                                {% if is_granted('ROLE_ADMIN') %}
+                                <li>
+                                    <a class="dropdown-item" href="{{ path('admin_dashboard') }}">
+                                        <i class="fas fa-tachometer-alt me-2"></i>Admin Dashboard
+                                    </a>
+                                </li>
+                                {% endif %}
+                                <li>
+                                    <a class="dropdown-item" href="{{ path('app_cart') }}">
+                                        <i class="fas fa-shopping-cart me-2"></i>Mon Panier
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="{{ path('app_logout') }}">
+                                        <i class="fas fa-sign-out-alt me-2"></i>Déconnexion
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="{{ path('app_profile') }}">
+                                        <i class="fas fa-user me-2"></i>Mon Profil
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('app_login') }}">
+                                    <i class="fas fa-sign-in-alt me-1"></i>Connexion
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('app_register') }}">
+                                    <i class="fas fa-user-plus me-1"></i>Inscription
+                                </a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container mt-4">
+            {% block body %}{% endblock %}
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

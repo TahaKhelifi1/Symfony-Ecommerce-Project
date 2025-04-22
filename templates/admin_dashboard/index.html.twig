@@ -1,0 +1,98 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tableau de bord Administrateur{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="text-center mb-5">Tableau de bord Administrateur</h1>
+
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+
+            {% for message in app.flashes('error') %}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+
+            <div class="row justify-content-center">
+                <div class="col-md-5 mb-4">
+                    <div class="card shadow-sm h-100">
+                        <div class="card-body text-center">
+                            <i class="fas fa-box fa-3x text-primary mb-3"></i>
+                            <h2 class="card-title">Gestion des Produits</h2>
+                            <p class="card-text">Gérez votre catalogue de produits, ajoutez, modifiez ou supprimez des articles.</p>
+                            <a href="{{ path('app_products') }}" class="btn btn-primary btn-lg">
+                                <i class="fas fa-arrow-right me-2"></i>Accéder
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-5 mb-4">
+                    <div class="card shadow-sm h-100">
+                        <div class="card-body text-center">
+                            <i class="fas fa-users fa-3x text-success mb-3"></i>
+                            <h2 class="card-title">Gestion des Utilisateurs</h2>
+                            <p class="card-text">Administrez les utilisateurs, leurs rôles et leurs permissions.</p>
+                            <a href="{{ path('admin_users') }}" class="btn btn-success btn-lg">
+                                <i class="fas fa-arrow-right me-2"></i>Accéder
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row justify-content-center mt-4">
+                <div class="col-md-5 mb-4">
+                    <div class="card shadow-sm h-100">
+                        <div class="card-body text-center">
+                            <i class="fas fa-shopping-cart fa-3x text-info mb-3"></i>
+                            <h2 class="card-title">Gestion des Commandes</h2>
+                            <p class="card-text">Suivez et gérez les commandes de vos clients.</p>
+                            <a href="#" class="btn btn-info btn-lg">
+                                <i class="fas fa-arrow-right me-2"></i>Accéder
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-5 mb-4">
+                    <div class="card shadow-sm h-100">
+                        <div class="card-body text-center">
+                            <i class="fas fa-cog fa-3x text-warning mb-3"></i>
+                            <h2 class="card-title">Paramètres</h2>
+                            <p class="card-text">Configurez les paramètres de votre boutique.</p>
+                            <a href="#" class="btn btn-warning btn-lg">
+                                <i class="fas fa-arrow-right me-2"></i>Accéder
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .card {
+        transition: transform 0.3s ease;
+    }
+    .card:hover {
+        transform: translateY(-5px);
+    }
+    .card-body {
+        padding: 2rem;
+    }
+    .btn {
+        padding: 0.75rem 1.5rem;
+    }
+</style>
+{% endblock %}
